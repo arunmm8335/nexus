@@ -1,0 +1,7 @@
+{
+  "name": "Nexus Student Dashboard",
+  "description": "A futuristic personal dashboard for developer students featuring AI briefings, budget tracking, calendar goals, and GitHub monitoring.",
+  "requestFramePermissions": [
+    "geolocation"
+  ]
+}
