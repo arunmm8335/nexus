@@ -64,7 +64,7 @@ export const getSmartBriefing = async (
       
       Status Report:
       - Weather: ${weather ? `${weather.temperature}°C` : 'Unknown'}
-      - Financial Status: Spent $${spent} of $${finance.budget} budget (${budgetPercent}% utilized).
+      - Financial Status: Spent ₹${spent} of ₹${finance.budget} budget (${budgetPercent}% utilized).
       - Hydration Level: ${water.current}/${water.goal} glasses (${hydrationPercent}%).
       - Upcoming Deadlines/Goals (Next 3 days): ${upcomingEvents.map(e => `${e.title} on ${e.date}`).join(", ") || "None"}
       
@@ -114,7 +114,7 @@ export const getPerformanceInsights = async (
       As Nexus AI, analyze this student developer's recent performance to provide a behavioral insight:
       - Task Efficiency: ${completedTodos} completed out of ${totalTodos} active directives.
       - Cognitive Log: ${journalCount} entries. Latest mood state: ${latestMood}.
-      - Resource Usage: $${spent} spent vs $${finance.budget} allocated.
+      - Resource Usage: ₹${spent} spent vs ₹${finance.budget} allocated.
       
       Task:
       Provide a single, sharp, personalized insight or recommendation (max 2 sentences).

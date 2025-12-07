@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 
@@ -22,29 +23,33 @@ export const GlassCard: React.FC<GlassCardProps> = ({
     <div 
       className={`
         relative overflow-hidden
-        bg-black/50 backdrop-blur-md
-        border border-white/10
+        backdrop-blur-xl
         rounded-2xl shadow-2xl
-        text-neutral-200
         transition-all duration-300 
-        hover:bg-black/60 hover:border-white/20 hover:shadow-white/5
-        flex flex-col
+        flex flex-col h-full
         ${className}
       `}
-      style={isCollapsed ? { height: 'auto', minHeight: '0' } : undefined}
+      style={{
+        backgroundColor: 'var(--glass-bg)',
+        borderColor: 'var(--glass-border)',
+        borderWidth: '1px',
+        color: 'var(--text-main)',
+        ...(isCollapsed ? { height: 'auto', minHeight: '0' } : undefined)
+      }}
     >
       {(title || action || collapsible) && (
-        <div className="px-6 py-4 border-b border-white/5 flex justify-between items-center bg-white/5 shrink-0">
+        <div className="px-6 py-4 border-b flex justify-between items-center shrink-0 group" style={{ borderColor: 'var(--glass-border)', backgroundColor: 'rgba(255,255,255,0.03)' }}>
           <div className="flex items-center gap-2">
-            {title && <h3 className="font-semibold text-xs uppercase tracking-[0.2em] text-neutral-400 select-none drop-shadow-sm">{title}</h3>}
+            {title && <h3 className="font-semibold text-xs uppercase tracking-[0.2em] select-none drop-shadow-sm opacity-70" style={{ color: 'var(--text-muted)' }}>{title}</h3>}
           </div>
           
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2" onMouseDown={e => e.stopPropagation()}>
             {action && <div>{action}</div>}
             {collapsible && (
               <button 
                 onClick={() => setIsCollapsed(!isCollapsed)}
-                className="p-1 hover:bg-white/10 rounded-lg transition-colors text-neutral-500 hover:text-neutral-200"
+                className="p-1 rounded-lg transition-colors opacity-60 hover:opacity-100"
+                style={{ color: 'var(--text-main)' }}
                 aria-label={isCollapsed ? "Expand" : "Collapse"}
               >
                 {isCollapsed ? <ChevronDown className="w-4 h-4" /> : <ChevronUp className="w-4 h-4" />}

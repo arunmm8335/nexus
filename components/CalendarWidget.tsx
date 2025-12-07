@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight, Flag, Plus, X } from 'lucide-react';
 import { GlassCard } from './GlassCard';
@@ -80,9 +81,10 @@ export const CalendarWidget: React.FC<CalendarWidgetProps> = ({ onEventsUpdate }
           onClick={() => handleDateClick(d)}
           className={`
             h-12 md:h-14 rounded-lg flex flex-col items-center justify-start pt-1.5 relative transition-all duration-300
-            ${isSelected ? 'bg-indigo-600 text-white shadow-lg border border-indigo-400/50' : 'hover:bg-slate-800/50 text-slate-400'}
-            ${isToday ? 'border border-sky-500/30 bg-sky-900/10' : 'border border-transparent'}
+            ${isSelected ? 'bg-indigo-600 text-white shadow-lg border border-indigo-400/50' : 'hover:bg-white/5'}
+            ${isToday ? 'border border-sky-500/30 bg-sky-500/10' : 'border border-transparent'}
           `}
+          style={{ color: isSelected ? '#ffffff' : 'var(--text-muted)' }}
         >
           <span className={`text-xs font-medium z-10 ${isToday ? 'text-sky-400 font-bold' : ''}`}>{d}</span>
           
@@ -112,24 +114,25 @@ export const CalendarWidget: React.FC<CalendarWidgetProps> = ({ onEventsUpdate }
       action={
         <button 
           onClick={handleQuickAdd}
-          className="text-slate-500 hover:text-white hover:bg-slate-800 p-1.5 rounded-lg transition-all"
+          className="hover:text-white hover:bg-white/10 p-1.5 rounded-lg transition-all"
           title="Add Goal for Today"
+          style={{ color: 'var(--text-muted)' }}
         >
           <Plus className="w-4 h-4" />
         </button>
       }
     >
       <div className="flex items-center justify-between mb-6 px-2">
-         <button onClick={handlePrevMonth} className="p-2 hover:bg-slate-800 rounded-full transition-colors"><ChevronLeft className="w-5 h-5 text-slate-400" /></button>
-         <h3 className="font-semibold text-xl tracking-wide text-slate-200">
+         <button onClick={handlePrevMonth} className="p-2 hover:bg-white/10 rounded-full transition-colors"><ChevronLeft className="w-5 h-5" style={{ color: 'var(--text-muted)' }} /></button>
+         <h3 className="font-semibold text-xl tracking-wide" style={{ color: 'var(--text-main)' }}>
            {currentDate.toLocaleDateString('default', { month: 'long', year: 'numeric' })}
          </h3>
-         <button onClick={handleNextMonth} className="p-2 hover:bg-slate-800 rounded-full transition-colors"><ChevronRight className="w-5 h-5 text-slate-400" /></button>
+         <button onClick={handleNextMonth} className="p-2 hover:bg-white/10 rounded-full transition-colors"><ChevronRight className="w-5 h-5" style={{ color: 'var(--text-muted)' }} /></button>
       </div>
 
-      <div className="grid grid-cols-7 gap-2 text-center mb-2 border-b border-slate-700/50 pb-2">
+      <div className="grid grid-cols-7 gap-2 text-center mb-2 border-b pb-2" style={{ borderColor: 'var(--glass-border)' }}>
         {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(d => (
-          <div key={d} className="text-[10px] text-slate-500 font-bold uppercase tracking-widest">{d}</div>
+          <div key={d} className="text-[10px] font-bold uppercase tracking-widest" style={{ color: 'var(--text-muted)' }}>{d}</div>
         ))}
       </div>
 
@@ -138,12 +141,12 @@ export const CalendarWidget: React.FC<CalendarWidgetProps> = ({ onEventsUpdate }
       </div>
 
       {/* Selected Date Details */}
-      <div className="border-t border-slate-700/50 pt-4 flex-1 flex flex-col bg-slate-950/20 -mx-6 -mb-6 px-6 pb-6">
+      <div className="border-t pt-4 flex-1 flex flex-col -mx-6 -mb-6 px-6 pb-6" style={{ borderColor: 'var(--glass-border)', backgroundColor: 'var(--input-bg)' }}>
         {selectedDate ? (
           <div className="animate-in slide-in-from-bottom-2 fade-in duration-300">
              <div className="flex justify-between items-center mb-4 mt-2">
-               <div className="text-xs text-slate-500 uppercase tracking-widest font-semibold">
-                 Goals for <span className="text-slate-300 ml-1">{new Date(selectedDate).toLocaleDateString()}</span>
+               <div className="text-xs uppercase tracking-widest font-semibold" style={{ color: 'var(--text-muted)' }}>
+                 Goals for <span className="ml-1" style={{ color: 'var(--text-main)' }}>{new Date(selectedDate).toLocaleDateString()}</span>
                </div>
              </div>
              
@@ -153,7 +156,8 @@ export const CalendarWidget: React.FC<CalendarWidgetProps> = ({ onEventsUpdate }
                   value={newGoal}
                   onChange={e => setNewGoal(e.target.value)}
                   placeholder="Add deadline, exam, or goal..."
-                  className="flex-1 bg-slate-900/50 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-indigo-500/50 transition-colors"
+                  className="flex-1 border rounded-lg px-3 py-2 text-sm focus:outline-none transition-colors"
+                  style={{ backgroundColor: 'rgba(0,0,0,0.2)', borderColor: 'var(--glass-border)', color: 'var(--text-main)' }}
                   autoFocus
                />
                <button type="submit" className="p-2 bg-indigo-500/20 text-indigo-300 rounded-lg hover:bg-indigo-500/30 transition-colors border border-indigo-500/20">
@@ -162,12 +166,12 @@ export const CalendarWidget: React.FC<CalendarWidgetProps> = ({ onEventsUpdate }
              </form>
 
              <div className="space-y-2 overflow-y-auto max-h-[150px] pr-1 custom-scrollbar">
-               {selectedEvents.length === 0 && <div className="text-sm text-slate-600 italic py-4 text-center">No strategic goals set for this date.</div>}
+               {selectedEvents.length === 0 && <div className="text-sm italic py-4 text-center" style={{ color: 'var(--text-muted)' }}>No strategic goals set for this date.</div>}
                {selectedEvents.map((ev, idx) => (
-                 <div key={idx} className="flex justify-between items-center group text-sm bg-slate-800/40 p-3 rounded-lg hover:bg-slate-800/60 transition-colors border border-slate-700/50">
+                 <div key={idx} className="flex justify-between items-center group text-sm p-3 rounded-lg transition-colors border" style={{ backgroundColor: 'var(--glass-bg)', borderColor: 'var(--glass-border)' }}>
                     <div className="flex items-center gap-3">
                       <Flag className="w-3.5 h-3.5 text-pink-400" />
-                      <span className="text-slate-200">{ev.title}</span>
+                      <span style={{ color: 'var(--text-main)' }}>{ev.title}</span>
                     </div>
                     <button onClick={() => removeEvent(ev.date, ev.title)} className="opacity-0 group-hover:opacity-100 text-red-400 hover:text-red-300 p-1 rounded hover:bg-red-500/10">
                       <X className="w-3.5 h-3.5" />
@@ -177,8 +181,8 @@ export const CalendarWidget: React.FC<CalendarWidgetProps> = ({ onEventsUpdate }
              </div>
           </div>
         ) : (
-          <div className="text-center text-slate-600 text-sm mt-6 flex flex-col items-center">
-            <div className="p-3 bg-slate-800/50 rounded-full mb-3">
+          <div className="text-center text-sm mt-6 flex flex-col items-center" style={{ color: 'var(--text-muted)' }}>
+            <div className="p-3 rounded-full mb-3" style={{ backgroundColor: 'var(--glass-bg)' }}>
                <CalendarEventIcon />
             </div>
             Select a date to manage strategic goals.

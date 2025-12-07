@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { DollarSign, Upload, Search, FileText, Plus, X } from 'lucide-react';
+import { IndianRupee, Upload, Search, FileText, Plus, X } from 'lucide-react';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip as RechartsTooltip, BarChart, Bar, XAxis, YAxis, CartesianGrid } from 'recharts';
 import { GlassCard } from '../components/GlassCard';
 import { Transaction } from '../types';
@@ -11,7 +11,7 @@ export const FinancePage: React.FC = () => {
     const saved = localStorage.getItem('nexus_transactions');
     return saved ? JSON.parse(saved) : [];
   });
-  const [budget] = useState(() => Number(localStorage.getItem('nexus_budget')) || 500);
+  const [budget] = useState(() => Number(localStorage.getItem('nexus_budget')) || 10000);
 
   // Filter State
   const [searchTerm, setSearchTerm] = useState('');
@@ -45,7 +45,7 @@ export const FinancePage: React.FC = () => {
     // Mock processing - add a dummy transaction or just alert
     const newTx: Transaction = {
       id: Date.now().toString(),
-      amount: Math.floor(Math.random() * 50) + 10,
+      amount: Math.floor(Math.random() * 500) + 100,
       category: 'Other',
       date: new Date().toISOString(),
       receiptUrl: URL.createObjectURL(uploadFile), // Local preview
@@ -70,16 +70,16 @@ export const FinancePage: React.FC = () => {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <GlassCard className="p-6">
            <div className="text-neutral-500 text-xs uppercase tracking-widest font-bold">Total Budget</div>
-           <div className="text-3xl font-light text-white mt-2">${budget.toFixed(2)}</div>
+           <div className="text-3xl font-light text-white mt-2">₹{budget.toFixed(2)}</div>
         </GlassCard>
         <GlassCard className="p-6">
            <div className="text-neutral-500 text-xs uppercase tracking-widest font-bold">Total Spent</div>
-           <div className="text-3xl font-light text-red-400 mt-2">${totalSpent.toFixed(2)}</div>
+           <div className="text-3xl font-light text-red-400 mt-2">₹{totalSpent.toFixed(2)}</div>
         </GlassCard>
         <GlassCard className="p-6">
            <div className="text-neutral-500 text-xs uppercase tracking-widest font-bold">Remaining</div>
            <div className={`text-3xl font-light mt-2 ${budget - totalSpent >= 0 ? 'text-green-400' : 'text-red-500'}`}>
-             ${(budget - totalSpent).toFixed(2)}
+             ₹{(budget - totalSpent).toFixed(2)}
            </div>
         </GlassCard>
       </div>
@@ -195,7 +195,7 @@ export const FinancePage: React.FC = () => {
                           )}
                         </td>
                         <td className="p-4 text-right font-mono font-medium text-white">
-                          ${t.amount.toFixed(2)}
+                          ₹{t.amount.toFixed(2)}
                         </td>
                       </tr>
                     ))}

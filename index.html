@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -6,17 +7,40 @@
     <title>Nexus Life Dashboard</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
+      :root {
+        /* Default (Dark Mode) Variables */
+        --bg-overlay: rgba(0, 0, 0, 0.4);
+        --glass-bg: rgba(0, 0, 0, 0.7);
+        --glass-border: rgba(255, 255, 255, 0.1);
+        --text-main: #e5e5e5;
+        --text-muted: #a3a3a3;
+        --accent-glow: rgba(56, 189, 248, 0.4);
+        --input-bg: rgba(0, 0, 0, 0.5);
+      }
+
+      body.light-mode {
+        /* Light Mode Overrides */
+        --bg-overlay: rgba(255, 255, 255, 0.4);
+        --glass-bg: rgba(255, 255, 255, 0.75);
+        --glass-border: rgba(0, 0, 0, 0.1);
+        --text-main: #0f172a; /* Slate 900 - Much darker for contrast */
+        --text-muted: #475569; /* Slate 600 */
+        --accent-glow: rgba(14, 165, 233, 0.6);
+        --input-bg: rgba(255, 255, 255, 0.5);
+      }
+
       body {
-        background-color: #000000; /* Fallback */
+        background-color: #000000;
         background-image: 
-          linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.4)), /* Much lighter overlay */
-          url('https://images.unsplash.com/photo-1478760329108-5c3ed9d495a0?q=80&w=2074&auto=format&fit=crop');
+          linear-gradient(var(--bg-overlay), var(--bg-overlay)),
+          url('https://images.unsplash.com/photo-1519608487953-e999c9dc2968?q=80&w=2670&auto=format&fit=crop');
         background-size: cover;
         background-position: center;
         background-attachment: fixed;
         background-repeat: no-repeat;
-        color: #e5e5e5; /* Neutral 200 */
+        color: var(--text-main);
         font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        transition: color 0.3s ease;
       }
       
       /* Animations */
@@ -47,12 +71,12 @@
         width: 200%;
         height: 200%;
         border-radius: 40%;
-        background-color: rgba(56, 189, 248, 0.4); /* Sky 400 */
+        background-color: var(--accent-glow); 
         animation: wave-rotate 6s infinite linear;
         z-index: 1;
       }
       .wave:nth-child(2) {
-        background-color: rgba(99, 102, 241, 0.5); /* Indigo 500 */
+        background-color: rgba(99, 102, 241, 0.5); 
         border-radius: 45%;
         animation: wave-rotate 10s infinite linear;
         z-index: 2;
@@ -71,14 +95,14 @@
         width: 6px;
       }
       ::-webkit-scrollbar-track {
-        background: rgba(0,0,0,0.3); 
+        background: rgba(0,0,0,0.1); 
       }
       ::-webkit-scrollbar-thumb {
-        background: rgba(255,255,255,0.2); 
+        background: rgba(128,128,128,0.3); 
         border-radius: 3px;
       }
       ::-webkit-scrollbar-thumb:hover {
-        background: rgba(255,255,255,0.4); 
+        background: rgba(128,128,128,0.5); 
       }
     </style>
   <script type="importmap">
@@ -90,7 +114,8 @@
     "react-router-dom": "https://aistudiocdn.com/react-router-dom@6.22.3",
     "@google/genai": "https://aistudiocdn.com/@google/genai@^1.31.0",
     "lucide-react": "https://aistudiocdn.com/lucide-react@^0.556.0",
-    "recharts": "https://aistudiocdn.com/recharts@^3.5.1"
+    "recharts": "https://aistudiocdn.com/recharts@^3.5.1",
+    "clsx": "https://aistudiocdn.com/clsx@^2.1.0"
   }
 }
 </script>

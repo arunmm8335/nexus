@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import { Cloud, Sun, Moon, Wind, Loader2 } from 'lucide-react';
 import { GlassCard } from './GlassCard';
@@ -51,7 +52,7 @@ export const WeatherWidget: React.FC<WeatherWidgetProps> = ({ onWeatherUpdate })
   if (error || !weather) {
     return (
       <GlassCard title="Atmospherics" className="h-full min-h-[220px]">
-        <div className="flex flex-col items-center justify-center h-full text-slate-500">
+        <div className="flex flex-col items-center justify-center h-full" style={{ color: 'var(--text-muted)' }}>
           <Cloud className="w-10 h-10 mb-2" />
           <span>{error || "No Data"}</span>
         </div>
@@ -66,10 +67,10 @@ export const WeatherWidget: React.FC<WeatherWidgetProps> = ({ onWeatherUpdate })
       <div className="flex flex-col h-full justify-between">
         <div className="flex items-start justify-between mt-2">
           <div>
-            <div className="text-6xl font-light tracking-tighter text-slate-100">
+            <div className="text-6xl font-light tracking-tighter" style={{ color: 'var(--text-main)' }}>
               {Math.round(weather.temperature)}°
             </div>
-            <div className="text-lg text-slate-400 font-medium mt-1">
+            <div className="text-lg font-medium mt-1" style={{ color: 'var(--text-muted)' }}>
               {getWeatherDescription(weather.weatherCode)}
             </div>
           </div>
@@ -79,18 +80,18 @@ export const WeatherWidget: React.FC<WeatherWidgetProps> = ({ onWeatherUpdate })
         </div>
 
         <div className="mt-6 grid grid-cols-2 gap-3">
-          <div className="bg-slate-800/40 rounded-lg p-3 flex items-center space-x-3 border border-slate-700/50 hover:bg-slate-800/60 transition-colors">
+          <div className="rounded-lg p-3 flex items-center space-x-3 transition-colors" style={{ backgroundColor: 'var(--input-bg)' }}>
             <Wind className="w-5 h-5 text-sky-400" />
             <div>
-              <div className="text-[10px] text-slate-500 uppercase tracking-wider">Wind</div>
-              <div className="text-sm font-semibold text-slate-200">{weather.windSpeed} km/h</div>
+              <div className="text-[10px] uppercase tracking-wider" style={{ color: 'var(--text-muted)' }}>Wind</div>
+              <div className="text-sm font-semibold" style={{ color: 'var(--text-main)' }}>{weather.windSpeed} km/h</div>
             </div>
           </div>
-           <div className="bg-slate-800/40 rounded-lg p-3 flex items-center space-x-3 border border-slate-700/50 hover:bg-slate-800/60 transition-colors">
+           <div className="rounded-lg p-3 flex items-center space-x-3 transition-colors" style={{ backgroundColor: 'var(--input-bg)' }}>
              <div className={`w-3 h-3 rounded-full shadow-lg ${weather.isDay ? 'bg-amber-400 shadow-amber-500/50' : 'bg-indigo-500 shadow-indigo-500/50'}`}></div>
             <div>
-              <div className="text-[10px] text-slate-500 uppercase tracking-wider">Cycle</div>
-              <div className="text-sm font-semibold text-slate-200">{weather.isDay ? 'Day' : 'Night'}</div>
+              <div className="text-[10px] uppercase tracking-wider" style={{ color: 'var(--text-muted)' }}>Cycle</div>
+              <div className="text-sm font-semibold" style={{ color: 'var(--text-main)' }}>{weather.isDay ? 'Day' : 'Night'}</div>
             </div>
           </div>
         </div>
